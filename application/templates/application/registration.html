@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<form action="{% url 'application:reg' %}" method="post">
+    {% csrf_token %}
+
+</form>
+</body>
+</html>
