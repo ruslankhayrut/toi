@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тема</title>
+</head>
+<body>
+{{ topic.name }}
+
+<table>
+
+    <tr>
+        {% for information in informations %}
+        <td><a href="{% url 'application:info' information.id %}">{{ information.id }} </a></td>
+        {% endfor %}
+        {% for question in questions %}
+        <td><a href="{% url 'application:question' question.id %}">?</a></td>
+        {% endfor %}
+    </tr>
+
+</table>
+</body>
+</html>

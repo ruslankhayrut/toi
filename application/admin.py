@@ -29,7 +29,10 @@ class QuestionAdmin(admin.ModelAdmin):
         AnswerInline,
     ]
 
+
 admin.site.register(Module, ModuleAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
+admin.site.register(Student)
+admin.site.register(Information)

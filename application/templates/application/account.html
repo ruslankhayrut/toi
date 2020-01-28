@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя страница</title>
+</head>
+<body>
+{{ user.username }}
+<table>
+    {% for module in modules %}
+    <tr>
+        {% if module.id in done_modules %}
+            <td class="done">{{ module.name }}</td>
+        {% else %}
+            <td>{{ module.name }}</td>
+        {% endif %}
+    </tr>
+        {% for topic in topics %}
+            <tr>
+                {% if topic.module.id == module.id %}
+                <td>
+                    <a href="{% url 'application:topic' topic.id %}">{{ topic.name }}</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+
+    {% endfor %}
+</table>
+
+
+<p><a href="{% url 'logout' %}">Выйти</a></p>
+</body>
+</html>

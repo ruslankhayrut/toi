@@ -5,9 +5,32 @@
     <title>Регистрация</title>
 </head>
 <body>
-<form action="{% url 'application:reg' %}" method="post">
-    {% csrf_token %}
 
+{% if form.errors %}
+    <p>{{ form.errors }}</p>
+    {% if form.email.errors %}
+    <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+    {% endif %}
+
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>{{ form.email.label_tag }}</td>
+            <td>{{ form.email }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password2.label_tag }}</td>
+            <td>{{ form.password2 }}</td>
+        </tr>
+    </table>
+    <input type="submit" value="Зарегистрироваться">
 </form>
 </body>
 </html>
