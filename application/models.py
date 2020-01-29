@@ -47,6 +47,7 @@ class Student(models.Model):
     done_modules = models.CharField(validators=[int_list_validator], max_length=300, null=True, blank=True)
     done_topics = models.CharField(validators=[int_list_validator], max_length=300, null=True, blank=True)
     done_questions = models.CharField(validators=[int_list_validator], max_length=300, null=True, blank=True)
+    wrong_questions = models.CharField(validators=[int_list_validator], max_length=300, null=True, blank=True)
 
     def __str__(self):
         return self.user.username

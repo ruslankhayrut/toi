@@ -1,0 +1,76 @@
+body {
+    margin:0;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+
+td {
+    border: 1px solid black;
+    padding: 0px 20px;
+}
+
+td.topic-name {
+    border: none;
+    font-size: 16pt;
+    font-weight: bold;
+
+}
+
+#sidebar, #content { position: absolute; }
+#sidebar, #content { overflow: auto;}
+
+#header {
+    height: 80px; /* Высота слоя */
+    background: white;
+    border-bottom: 2px solid black;
+
+}
+
+
+#sidebar {
+width: 18%;
+background: white;
+border-right: 2px solid black;
+top: 82px; /* Расстояние от верхнего края */
+bottom: 0; /* Расстояние снизу  */
+}
+
+#content {
+top: 82px; /* Расстояние от верхнего края */
+left: 19%; /* Расстояние от левого края */
+bottom: 0; right: 0;
+margin-left: 25px;
+}
+
+.done > p {
+    color: green;
+}
+
+div.done {
+    background-color: #BFF5BD;
+}
+
+div.wrong {
+    background-color: #F5BDBD;
+}
+
+a {
+    text-decoration: none;
+    color:black
+}
+
+a:hover {
+    color: blue;
+}
+
+a.done {
+    color:green;
+}
+
+a.wrong {
+    color:red;
+}

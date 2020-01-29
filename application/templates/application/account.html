@@ -19,7 +19,7 @@
             <tr>
                 {% if topic.module.id == module.id %}
                 <td>
-                    <a href="{% url 'application:topic' topic.id %}">{{ topic.name }}</a>
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}">{{ topic.name }}</a>
                 </td>
                 {% endif %}
             </tr>

@@ -1,23 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Тема</title>
+    <link rel="stylesheet" href="{% static 'application/topic.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script>
+
+        function getInfo(id) {
+        var n = parseInt(id);
+        infoUrl = `info/${n}`
+        axios.get(infoUrl)
+        .then((response) => {
+            var target = document.getElementById('content');
+            target.innerHTML = response.data;
+            var type = 'info';
+            var id = n;
+        })
+      }
+
+          function getQuestion(id) {
+            var n = parseInt(id);
+            infoUrl = `q/${n}`
+            axios.get(infoUrl)
+            .then((response) => {
+                var target = document.getElementById('content');
+                target.innerHTML = response.data;
+                var type = 'question';
+                var id = n;
+            })
+          }
+
+    </script>
 </head>
 <body>
-{{ topic.name }}
-
-<table>
-
+<div id="header">
+    <table>
+        <tr>
+            <td class="topic-name">
+                {{ topic.name }}
+            </td>
+            {% for information in informations %}
+            <td><a href="{% url 'application:info' topic_id=topic.id info_id=information.id %}" name="info" id="{{information.id}}">Инф</a></td>
+            {% endfor %}
+            {% for question in questions %}
+            <td>
+                {% if question.id in done_questions %}
+                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="done">?</a>
+                {% elif question.id in wrong_questions %}
+                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="wrong">?</a>
+                {% else %}
+                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}">?</a>
+                {% endif %}
+            </td>
+            {% endfor %}
+            </tr>
+    </table>
+</div>
+<div id="sidebar">
+    <table>
+        {% for module in modules %}
     <tr>
-        {% for information in informations %}
-        <td><a href="{% url 'application:info' information.id %}">{{ information.id }} </a></td>
-        {% endfor %}
-        {% for question in questions %}
-        <td><a href="{% url 'application:question' question.id %}">?</a></td>
-        {% endfor %}
+        {% if module.id in done_modules %}
+            <td class="done">
+                <p>{{ module.name }}</p>
+            </td>
+        {% else %}
+            <td><p>{{ module.name }}</p></td>
+        {% endif %}
     </tr>
+        {% for topic in topics %}
+            <tr>
+                {% if topic.module.id == module.id %}
+                <td>
+                    <p>
+                    {% if topic.id in done_topics %}
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done">{{ topic.name }}</a>
+                    {% else %}
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}">{{ topic.name }}</a>
+                    {% endif %}
+                    </p>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
 
-</table>
+    {% endfor %}
+    </table>
+</div>
+<div id="content">
+</div>
 </body>
+
 </html>

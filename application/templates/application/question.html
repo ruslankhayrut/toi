@@ -1,14 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Question</title>
+    <link rel="stylesheet" href="{% static 'application/topic.css' %}">
 </head>
 <body>
-{{question.text}}
-{% for answer in answers %}
-<p>{{answer.text}}</p>
-{% endfor %}
+<div id="header">
+    <table>
+        <tr>
+            <td class="topic-name">
+                {{ topic.name }}
+            </td>
+            {% for information in informations %}
+            <td><a href="{% url 'application:info' topic_id=topic.id info_id=information.id %}" name="info" id="{{information.id}}">Инф</a></td>
+            {% endfor %}
+            {% for question in questions %}
+            <td>
+                {% if question.id in done_questions %}
+                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="done">?</a>
+                {% elif question.id in wrong_questions %}
+                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="wrong">?</a>
+                {% else %}
+                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}">?</a>
+                {% endif %}
+            </td>
+            {% endfor %}
+            </tr>
+    </table>
+</div>
+<div id="sidebar">
+    <table>
+        {% for module in modules %}
+    <tr>
+        {% if module.id in done_modules %}
+            <td class="done">
+                <p>{{ module.name }}</p>
+            </td>
+        {% else %}
+            <td><p>{{ module.name }}</p></td>
+        {% endif %}
+    </tr>
+        {% for topic in topics %}
+            <tr>
+                {% if topic.module.id == module.id %}
+                <td>
+                    <p>
+                    {% if topic.id in done_topics %}
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done">{{ topic.name }}</a>
+                    {% else %}
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}">{{ topic.name }}</a>
+                    {% endif %}
+                    </p>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
 
+    {% endfor %}
+    </table>
+</div>
+<div id="content">
+    {% if question.id in done_questions %}
+<div class="done">
+{% elif question.id in wrong_questions %}
+<div class="wrong">
+{% else %}
+<div>
+{% endif %}
+<form action="/topic/{{topic.id}}/q/{{question.id}}/" method="post">
+    {% csrf_token %}
+
+    {{question.text}}
+    {% for answer in answers %}
+    <p><input type="radio" name="answer" value="{{answer.id}}">{{answer.text}}</p>
+    {% endfor %}
+    {% if question.id in done_questions %}
+    <input type="submit" value="Отправить" disabled>
+    {% else %}
+    <input type="submit" value="Отправить" onclick="window.location.reload();">
+    {% endif %}
+</form>
+</div>
+</div>
 </body>
 </html>
