@@ -48,7 +48,8 @@ def info(request, topic_id, info_id):
 
     all_info = get_list_or_404(Information, topic=topic_id)
     if not info_id:
-        info = all_info[0]
+        info_id = all_info[0].id
+        return HttpResponseRedirect(reverse('application:info', args=[topic_id, info_id]))
     else:
         info = get_object_or_404(Information, id=info_id)
 
@@ -56,9 +57,9 @@ def info(request, topic_id, info_id):
     if request.method == "GET":
         context = {
             'informations': all_info,
-            'information': info,
+            'req_information': info,
             'questions': get_list_or_404(Question, topic=topic_id),
-            'topic': get_object_or_404(Topic, id=topic_id),
+            'req_topic': get_object_or_404(Topic, id=topic_id),
             'modules': Module.objects.order_by('id'),
             'topics': Topic.objects.order_by('id'),
             'done_modules': done_modules,
@@ -97,12 +98,14 @@ def question(request, topic_id, question_id):
                 user.student.wrong_questions = ', '.join(str(n) for n in wrong_questions)
                 user.student.save()
 
+
+
     context = {
         'informations': get_list_or_404(Information, topic=topic_id),
-        'question': get_object_or_404(Question, id=question_id),
+        'req_question': get_object_or_404(Question, id=question_id),
         'answers': get_list_or_404(Answer, question=question_id),
         'questions': get_list_or_404(Question, topic=topic_id),
-        'topic': get_object_or_404(Topic, id=topic_id),
+        'req_topic': get_object_or_404(Topic, id=topic_id),
         'modules': Module.objects.order_by('id'),
         'topics': Topic.objects.order_by('id'),
         'done_modules': done_modules,
@@ -123,3 +126,4 @@ def parse_to_list(string):
     if string:
         return list(map(int, string.split(', ')))
     return []
+

@@ -3,67 +3,74 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Info</title>
+    <title>{{req_topic.name}}</title>
     <link rel="stylesheet" href="{% static 'application/topic.css' %}">
 </head>
 <body>
 <div id="header">
-    <table>
+    <div id="home"><a href="{% url 'application:account' %}">{{user.username}}</a></div>
+    <table class="top-buttons">
         <tr>
-            <td class="topic-name">
-                {{ topic.name }}
-            </td>
             {% for information in informations %}
-            <td><a href="{% url 'application:info' topic_id=topic.id info_id=information.id %}" name="info" id="{{information.id}}">Инф</a></td>
+            {% if req_information and information.id == req_information.id %}
+            <td class="active">
+            {% else %}
+            <td>
+            {% endif %}
+            <a href="{% url 'application:info' topic_id=req_topic.id info_id=information.id %}" name="info" id="{{information.id}}"><p>...</p></a>
+            </td>
+
             {% endfor %}
             {% for question in questions %}
             <td>
                 {% if question.id in done_questions %}
-                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="done">?</a>
+                <a href="{% url 'application:question' topic_id=req_topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="done"><p>?</p></a>
                 {% elif question.id in wrong_questions %}
-                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="wrong">?</a>
+                <a href="{% url 'application:question' topic_id=req_topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="wrong"><p>?</p></a>
                 {% else %}
-                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}">?</a>
+                <a href="{% url 'application:question' topic_id=req_topic.id question_id=question.id %}" name="question" id="{{question.id}}"><p>?</p></a>
                 {% endif %}
+
             </td>
             {% endfor %}
-            </tr>
+
+        </tr>
     </table>
+
 </div>
 <div id="sidebar">
     <table>
         {% for module in modules %}
-    <tr>
-        {% if module.id in done_modules %}
-            <td class="done">
-                <p>{{ module.name }}</p>
-            </td>
-        {% else %}
-            <td><p>{{ module.name }}</p></td>
-        {% endif %}
-    </tr>
-        {% for topic in topics %}
-            <tr>
+        <tr>
+            <td class="module-name" title="{{module.name}}"><p>{{ module.name }}</p></td>
+        </tr>
+            {% for topic in topics %}
+
                 {% if topic.module.id == module.id %}
+                <tr title="{{topic.name}}">
+                {% if topic.id == req_topic.id %}
+                <td class="active">
+                {% else %}
                 <td>
-                    <p>
+                {% endif %}
+
                     {% if topic.id in done_topics %}
-                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done">{{ topic.name }}</a>
+                <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done"><p>{{ topic.name }}</p></a>
                     {% else %}
-                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}">{{ topic.name }}</a>
+                <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>{{ topic.name }}</p></a>
                     {% endif %}
-                    </p>
+
                 </td>
                 {% endif %}
-            </tr>
-        {% endfor %}
+                </tr>
+            {% endfor %}
 
     {% endfor %}
     </table>
 </div>
 <div id="content">
     {% autoescape off %}
-    {{ information.text}}
+    {{ req_information.text}}
     {% endautoescape %}
 </div>
 </body>

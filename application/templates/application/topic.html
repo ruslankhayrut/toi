@@ -5,34 +5,6 @@
     <meta charset="UTF-8">
     <title>Тема</title>
     <link rel="stylesheet" href="{% static 'application/topic.css' %}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-    <script>
-
-        function getInfo(id) {
-        var n = parseInt(id);
-        infoUrl = `info/${n}`
-        axios.get(infoUrl)
-        .then((response) => {
-            var target = document.getElementById('content');
-            target.innerHTML = response.data;
-            var type = 'info';
-            var id = n;
-        })
-      }
-
-          function getQuestion(id) {
-            var n = parseInt(id);
-            infoUrl = `q/${n}`
-            axios.get(infoUrl)
-            .then((response) => {
-                var target = document.getElementById('content');
-                target.innerHTML = response.data;
-                var type = 'question';
-                var id = n;
-            })
-          }
-
-    </script>
 </head>
 <body>
 <div id="header">

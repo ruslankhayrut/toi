@@ -5,72 +5,170 @@ body {
 
 table {
     border-collapse: collapse;
+    color: white;
+    border-spacing: 3px;
 }
-
 
 td {
-    border: 1px solid black;
-    padding: 0px 20px;
+    padding: 0px;
+    background-color: #2e2e34;
+
 }
 
-td.topic-name {
-    border: none;
-    font-size: 16pt;
+td.active {
+    border: 2px solid white;
+
+}
+
+td.module-name {
+    background-color: #1C1C1E;
     font-weight: bold;
-
+    padding: 0px;
 }
 
-#sidebar, #content { position: absolute; }
+
+
+#sidebar, #content, #question { position: absolute; }
 #sidebar, #content { overflow: auto;}
+#sidebar {
+    overflow-x: hidden;
+}
 
 #header {
-    height: 80px; /* Высота слоя */
-    background: white;
-    border-bottom: 2px solid black;
+    height: 60px; /* Высота слоя */
+    background: #1C1C1E;
+    color: white;
 
 }
-
 
 #sidebar {
-width: 18%;
-background: white;
-border-right: 2px solid black;
-top: 82px; /* Расстояние от верхнего края */
-bottom: 0; /* Расстояние снизу  */
+    width: 17%;
+    background: #1C1C1E;
+    top: 61px; /* Расстояние от верхнего края */
+    bottom: 0; /* Расстояние снизу  */
 }
 
-#content {
-top: 82px; /* Расстояние от верхнего края */
-left: 19%; /* Расстояние от левого края */
-bottom: 0; right: 0;
-margin-left: 25px;
+#content, #question {
+    top: 61px; /* Расстояние от верхнего края */
+    left: 17%; /* Расстояние от левого края */
+    bottom: 0; right: 0;
+    padding:  30px 65px;
 }
 
-.done > p {
-    color: green;
+#question {
+    padding: 0px;
+}
+
+table.top-buttons {
+    position: relative;
+    top: -15%;
+    left: 18%;
+    border-collapse: separate;
+
+}
+
+div#home {
+    display: inline-block;
+    position: relative;
+    left: 2%;
+    top: 22px;
+}
+
+
+table.top-buttons td {
+    height: 35px;
+    width: 38px;
+    border-radius: 10px;
+    padding: 0;
+}
+
+table.top-buttons td a {
+    position: relative;
+    display: block;
+    height: 100%;
+}
+
+table.top-buttons td a p {
+    position: relative;
+    margin: 0;
+    top: 25%;
+    text-align: center;
 }
 
 div.done {
-    background-color: #BFF5BD;
+    background-color: #E2FFDE;
 }
 
 div.wrong {
-    background-color: #F5BDBD;
+    background-color: #FFEBEB;
 }
 
 a {
     text-decoration: none;
-    color:black
+    color:white;
+    display: block;
+    height: 100%;
+    border-radius:10px;
+
 }
 
-a:hover {
-    color: blue;
+#sidebar table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#sidebar p {
+    padding: 0px 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+
+#sidebar td.module-name p {
+    padding: 5px 0px 5px 15px;
+
+}
+
+#sidebar td.active {
+    border: none;
+    background: rgba(102, 204, 102, 0.5);
 }
 
 a.done {
-    color:green;
+    background: #05A40F;
 }
 
 a.wrong {
-    color:red;
+    background: #cd210c;
+}
+
+input[type=submit] {
+    position: absolute;
+    top: 108%;
+    width: 13%;
+    height: 12%;
+    background: #05A40F;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+input[type=submit]:disabled {
+    position: absolute;
+    top: 108%;
+    width: 13%;
+    height: 12%;
+    background: #96d78d;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+div#question div {
+    padding: 3% 5%;
+    position: relative;
 }

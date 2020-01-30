@@ -3,56 +3,61 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Question</title>
+    <title>{{req_topic.name}}</title>
     <link rel="stylesheet" href="{% static 'application/topic.css' %}">
 </head>
 <body>
 <div id="header">
-    <table>
+    <div id="home"><a href="{% url 'application:account' %}">{{user.username}}</a></div>
+    <table class="top-buttons">
         <tr>
-            <td class="topic-name">
-                {{ topic.name }}
-            </td>
+
             {% for information in informations %}
-            <td><a href="{% url 'application:info' topic_id=topic.id info_id=information.id %}" name="info" id="{{information.id}}">Инф</a></td>
+            <td><a href="{% url 'application:info' topic_id=req_topic.id info_id=information.id %}" name="info" id="{{information.id}}"><p>...</p></a></td>
             {% endfor %}
             {% for question in questions %}
+            {% if req_question and req_question.id == question.id %}
+            <td class="active">
+            {% else %}
             <td>
+
+            {% endif %}
                 {% if question.id in done_questions %}
-                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="done">?</a>
+            <a href="{% url 'application:question' topic_id=req_topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="done"><p>?</p></a>
                 {% elif question.id in wrong_questions %}
-                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="wrong">?</a>
+            <a href="{% url 'application:question' topic_id=req_topic.id question_id=question.id %}" name="question" id="{{question.id}}" class="wrong"><p>?</p></a>
                 {% else %}
-                <a href="{% url 'application:question' topic_id=topic.id question_id=question.id %}" name="question" id="{{question.id}}">?</a>
+            <a href="{% url 'application:question' topic_id=req_topic.id question_id=question.id %}" name="question" id="{{question.id}}"><p>?</p></a>
                 {% endif %}
+
             </td>
             {% endfor %}
             </tr>
     </table>
+
 </div>
 <div id="sidebar">
     <table>
         {% for module in modules %}
-    <tr>
-        {% if module.id in done_modules %}
-            <td class="done">
-                <p>{{ module.name }}</p>
-            </td>
-        {% else %}
-            <td><p>{{ module.name }}</p></td>
-        {% endif %}
-    </tr>
+        <tr>
+            <td class="module-name" title="{{module.name}}"><p>{{ module.name }}</p></td>
+        </tr>
         {% for topic in topics %}
-            <tr>
+
                 {% if topic.module.id == module.id %}
+                <tr title="{{topic.name}}">
+                {% if topic.id == req_topic.id %}
+                <td class="active">
+                {% else %}
                 <td>
-                    <p>
+                {% endif %}
+
                     {% if topic.id in done_topics %}
-                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done">{{ topic.name }}</a>
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done"><p>{{ topic.name }}</p></a>
                     {% else %}
-                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}">{{ topic.name }}</a>
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>{{ topic.name }}</p></a>
                     {% endif %}
-                    </p>
+
                 </td>
                 {% endif %}
             </tr>
@@ -61,22 +66,40 @@
     {% endfor %}
     </table>
 </div>
-<div id="content">
-    {% if question.id in done_questions %}
-<div class="done">
-{% elif question.id in wrong_questions %}
-<div class="wrong">
+<div id="question">
+
+{% if req_question.id in done_questions %}
+    <div class="done">
+        <p><b>Правильно! Молодец=)</b></p>
+        <br>
+        <br>
+{% elif req_question.id in wrong_questions %}
+    <div class="wrong">
+        <p><b>Неверно =( Попробуй еще раз.</b></p>
+        <br>
+        <br>
 {% else %}
-<div>
+    <div>
+        <br>
+        <br>
+        <br>
 {% endif %}
-<form action="/topic/{{topic.id}}/q/{{question.id}}/" method="post">
+<form action="{% url 'application:question' topic_id=req_topic.id question_id=req_question.id %}" method="post">
     {% csrf_token %}
 
-    {{question.text}}
+    {{req_question.text}}
+    <br>
+    <br>
+    <br>
     {% for answer in answers %}
-    <p><input type="radio" name="answer" value="{{answer.id}}">{{answer.text}}</p>
+        {% if forloop.counter == 1 %}
+        <p><input type="radio" name="answer" value="{{answer.id}}" checked>{{answer.text}}</p>
+        {% else %}
+        <p><input type="radio" name="answer" value="{{answer.id}}">{{answer.text}}</p>
+        {% endif %}
     {% endfor %}
-    {% if question.id in done_questions %}
+
+    {% if req_question.id in done_questions %}
     <input type="submit" value="Отправить" disabled>
     {% else %}
     <input type="submit" value="Отправить" onclick="window.location.reload();">
@@ -84,5 +107,6 @@
 </form>
 </div>
 </div>
+
 </body>
 </html>
