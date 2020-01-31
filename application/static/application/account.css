@@ -1,0 +1,74 @@
+body {
+    margin:0;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    margin-top: -3%;
+    padding-bottom: 15%;
+}
+
+table {
+    position: relative;
+    top: 80px;
+    width: fit-content;
+    margin: auto;
+    border-collapse: collapse;
+
+}
+
+td {
+    text-align: left;
+}
+
+td.module-name {
+    padding: 5%;
+    background: white;
+    font-weight: bold;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+td.topic-name:hover {
+    background: #e3e3e3;
+}
+
+
+td.topic-name p {
+    margin: 0;
+    padding: 3% 0% 3% 10%;
+
+}
+
+#account-header {
+    position: relative;
+    text-align: center;
+    top: 20%;
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+#exit {
+    position: absolute;
+    text-align: right;
+    right: 5%;
+    top: 1%;
+}
+
+#exit a:hover {
+    text-decoration: underline;
+}
+
+#header {
+    height: 95px;
+    background: #1C1C1E;
+    color: white;
+    padding-top: 1%;
+}
+
+#exit a {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color:black;
+    display: block;
+    height: 100%;
+}

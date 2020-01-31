@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
     <meta charset="UTF-8">
     <title>Login</title>
+  <link rel="stylesheet" href="{% static 'application/login.css' %}">
 </head>
 <body>
 
 {% block content %}
 
 {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
+  <p class="error">Неверный логин или пароль.</p>
 {% endif %}
 
 {% if next %}
@@ -17,7 +19,7 @@
     <p>Your account doesn't have access to this page. To proceed,
     please login with an account that has access.</p>
   {% else %}
-    <p>Please login to see this page.</p>
+    <p class="error">Пожалуйста, войдите или зарегистрируйтесь, чтобы продолжить.</p>
   {% endif %}
 {% endif %}
 
@@ -26,12 +28,12 @@
 <table>
 
 <tr>
-  <td>{{ form.username.label_tag }}</td>
+  <td class="label">Логин</td>
   <td>{{ form.username }}</td>
 </tr>
 
 <tr>
-  <td>{{ form.password.label_tag }}</td>
+  <td class="label">Пароль</td>
   <td>{{ form.password }}</td>
 </tr>
 </table>
@@ -42,7 +44,7 @@
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+<p id="passforgot"><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
 
 {% endblock %}
 </body>

@@ -1,9 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, get_list_or_404, get_object_or_404, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect, reverse, get_list_or_404, get_object_or_404
 from .forms import RegistrationForm
 from django.contrib.auth.decorators import login_required
 from .models import *
 
 def index(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('application:account'))
+
     return render(request, 'application/index.html')
 
 def registration(request):
@@ -27,7 +30,7 @@ def account(request):
 
     user = request.user
 
-    done_modules = parse_to_list(user.student.done_modules)
+    done_modules = user.student.parse_to_list(user.student.done_modules)
 
     context = {
         'topics': Topic.objects.order_by('id'),
@@ -41,10 +44,10 @@ def account(request):
 def info(request, topic_id, info_id):
     user = request.user
 
-    done_modules = parse_to_list(user.student.done_modules)
-    done_topics = parse_to_list(user.student.done_topics)
-    done_questions = parse_to_list(user.student.done_questions)
-    wrong_questions = parse_to_list(user.student.wrong_questions)
+    done_modules = user.student.parse_to_list(user.student.done_modules)
+    done_topics = user.student.parse_to_list(user.student.done_topics)
+    done_questions = user.student.parse_to_list(user.student.done_questions)
+    wrong_questions = user.student.parse_to_list(user.student.wrong_questions)
 
     all_info = get_list_or_404(Information, topic=topic_id)
     if not info_id:
@@ -73,10 +76,10 @@ def info(request, topic_id, info_id):
 def question(request, topic_id, question_id):
 
     user = request.user
-    done_questions = parse_to_list(user.student.done_questions)
-    wrong_questions = parse_to_list(user.student.wrong_questions)
-    done_modules = parse_to_list(user.student.done_modules)
-    done_topics = parse_to_list(user.student.done_topics)
+    done_questions = user.student.parse_to_list(user.student.done_questions)
+    wrong_questions = user.student.parse_to_list(user.student.wrong_questions)
+    done_modules = user.student.parse_to_list(user.student.done_modules)
+    done_topics = user.student.parse_to_list(user.student.done_topics)
 
     if request.method == 'POST':
 
@@ -103,7 +106,7 @@ def question(request, topic_id, question_id):
     context = {
         'informations': get_list_or_404(Information, topic=topic_id),
         'req_question': get_object_or_404(Question, id=question_id),
-        'answers': get_list_or_404(Answer, question=question_id),
+        'answers': Answer.objects.filter(question=question_id).order_by('?'),
         'questions': get_list_or_404(Question, topic=topic_id),
         'req_topic': get_object_or_404(Topic, id=topic_id),
         'modules': Module.objects.order_by('id'),
@@ -121,9 +124,4 @@ def act(request):
         return HttpResponseRedirect(reverse('login'))
     elif '_register' in request.POST:
         return HttpResponseRedirect(reverse('application:registration'))
-
-def parse_to_list(string):
-    if string:
-        return list(map(int, string.split(', ')))
-    return []
 

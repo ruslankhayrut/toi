@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Главная</title>
+    <link rel="stylesheet" href="{% static 'application/index.css' %}">
 </head>
 <body>
-Main page
+<h1>Курс по основам Теории информации</h1>
 <form method="post" action="{% url 'application:act' %}">
     {% csrf_token %}
     <input type="submit" name="_login" value="Войти" />
+    <br>
+    <br>
     <input type="submit" name="_register" value="Регистрация"/>
 </form>
 </body>

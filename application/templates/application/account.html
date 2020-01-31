@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Моя страница</title>
+    <link rel="stylesheet" href="{% static 'application/account.css' %}">
 </head>
 <body>
-{{ user.username }}
+<div id="header">
+<p id="account-header">{{ user.username }}</p>
+<p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
+</div>
 <table>
     {% for module in modules %}
     <tr>
         {% if module.id in done_modules %}
-            <td class="done">{{ module.name }}</td>
+            <td class="done module-name">{{ module.name }}</td>
         {% else %}
-            <td>{{ module.name }}</td>
+            <td class="module-name">{{ module.name }}</td>
         {% endif %}
     </tr>
         {% for topic in topics %}
+            {% if topic.module.id == module.id %}
             <tr>
-                {% if topic.module.id == module.id %}
-                <td>
-                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}">{{ topic.name }}</a>
+                <td class="topic-name">
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>{{ topic.name }}</p></a>
                 </td>
                 {% endif %}
             </tr>
@@ -27,8 +32,5 @@
 
     {% endfor %}
 </table>
-
-
-<p><a href="{% url 'logout' %}">Выйти</a></p>
 </body>
 </html>

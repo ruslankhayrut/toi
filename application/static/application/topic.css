@@ -38,7 +38,6 @@ td.module-name {
     height: 60px; /* Высота слоя */
     background: #1C1C1E;
     color: white;
-
 }
 
 #sidebar {
@@ -109,7 +108,6 @@ a {
     display: block;
     height: 100%;
     border-radius:10px;
-
 }
 
 #sidebar table {

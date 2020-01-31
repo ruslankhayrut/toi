@@ -1,0 +1,62 @@
+body {
+    margin:0;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+form {
+    position: relative;
+}
+
+table {
+    position: relative;
+    top: 80px;
+    width: fit-content;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 12px;
+}
+
+td.label {
+    text-align: right;
+}
+
+input[type=submit] {
+    position: relative;
+    left: 45%;
+    top: 115px;
+    height: 35px;
+    width: 115px;
+    background: #ffffff;
+    border: 1px solid #9b9b9b;
+    border-radius: 3px;
+}
+
+input[type=text], input[type=password] {
+    height: 20px;
+    width: 200px;
+    border: 2px;
+    border-radius: 8px;
+    padding: 4%;
+}
+
+#passforgot {
+    position: absolute;
+    display: block;
+    top: 38%;
+    left: 45.5%;
+    font-size: small;
+}
+
+a {
+    text-decoration: none;
+    color:black;
+    display: block;
+    height: 100%;
+}
+
+a:hover {
+    text-decoration: underline;
+}
