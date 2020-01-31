@@ -53,7 +53,7 @@
                 {% endif %}
 
                     {% if topic.id in done_topics %}
-                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done"><p>{{ topic.name }}</p></a>
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>&#10004; {{ topic.name }}</p></a>
                     {% else %}
                     <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>{{ topic.name }}</p></a>
                     {% endif %}
@@ -70,12 +70,12 @@
 
 {% if req_question.id in done_questions %}
     <div class="done">
-        <p><b>Правильно! Молодец=)</b></p>
+        <p><b>Правильно! Молодец</b></p>
         <br>
         <br>
 {% elif req_question.id in wrong_questions %}
     <div class="wrong">
-        <p><b>Неверно =( Попробуй еще раз.</b></p>
+        <p><b>Неверно... Попробуй еще раз.</b></p>
         <br>
         <br>
 {% else %}
@@ -93,9 +93,9 @@
     <br>
     {% for answer in answers %}
         {% if forloop.counter == 1 %}
-        <p><input type="radio" name="answer" value="{{answer.id}}" checked>{{answer.text}}</p>
+    <p><input type="radio" name="answer" value="{{answer.id}}" id="{{answer.id}}" checked><label for="{{answer.id}}">{{answer.text}}</label></p>
         {% else %}
-        <p><input type="radio" name="answer" value="{{answer.id}}">{{answer.text}}</p>
+    <p><input type="radio" name="answer" value="{{answer.id}}" id="{{answer.id}}"><label for="{{answer.id}}">{{answer.text}}</label></p>
         {% endif %}
     {% endfor %}
 

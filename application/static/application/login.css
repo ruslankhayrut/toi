@@ -60,3 +60,14 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+p.error {
+    position: absolute;
+    display: inline;
+    left: 35%;
+    top: 2%;
+    background: #ffdcdc;
+    padding: 1% 8%;
+    border-top: 1px solid #ffa9a9;
+    border-bottom: 1px solid #ffa9a9;
+}

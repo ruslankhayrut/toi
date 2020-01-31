@@ -29,6 +29,7 @@ class Question(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, verbose_name='Тема')
     correct_answer = models.PositiveSmallIntegerField(verbose_name='Правильный ответ', blank=True, null=True)
 
+
     def __str__(self):
         return self.text
 

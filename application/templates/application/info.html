@@ -55,7 +55,7 @@
                 {% endif %}
 
                     {% if topic.id in done_topics %}
-                <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}" class="done"><p>{{ topic.name }}</p></a>
+                <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>&#10004; {{ topic.name }}</p></a>
                     {% else %}
                 <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>{{ topic.name }}</p></a>
                     {% endif %}

@@ -72,3 +72,22 @@ a {
     display: block;
     height: 100%;
 }
+
+#progress {
+    display: inline;
+    position: absolute;
+    top: 25%;
+    left: 5%;
+}
+#progress p.total {
+    font-size: medium;
+    font-weight: bold;
+    border-bottom: 1px solid #d0d0d0;
+    padding-bottom: 3%;
+}
+
+#progress p {
+    margin: 0%;
+    font-size: small;
+}
+

@@ -170,3 +170,8 @@ div#question div {
     padding: 3% 5%;
     position: relative;
 }
+
+img {
+    margin: auto;
+    display: block;
+}
