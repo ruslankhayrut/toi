@@ -51,9 +51,8 @@ class Student(models.Model):
     wrong_questions = models.CharField(validators=[int_list_validator], max_length=300, null=True, blank=True)
 
     def parse_to_list(self, string):
-        if string:
-            return list(map(int, string.split(', ')))
-        return []
+        return list(map(int, string.split(', '))) if string else []
+
 
     def __str__(self):
         return self.user.username

@@ -6,7 +6,6 @@ from .models import *
 def index(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('application:account'))
-
     return render(request, 'application/index.html')
 
 def registration(request):
@@ -144,4 +143,4 @@ def act(request):
         return HttpResponseRedirect(reverse('application:registration'))
 
 def all_in(all_instance_elems, done_instance_elems):
-    return all([True if elem in done_instance_elems else False for elem in all_instance_elems])
+    return all([elem in done_instance_elems for elem in all_instance_elems])
