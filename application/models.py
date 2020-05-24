@@ -24,6 +24,14 @@ class Information(models.Model):
     def __str__(self):
         return self.topic.name + ' ' + str(self.id)
 
+class Recomendation(models.Model):
+    grade = models.PositiveSmallIntegerField(verbose_name='Класс', null=True)
+    topic = models.TextField(verbose_name='Тема', max_length='200')
+    text = RichTextUploadingField()
+
+    def __str__(self):
+        return 'Класс: {}, Тема: {}'.format(self.grade, self.topic)
+
 class Question(models.Model):
     text = models.TextField(verbose_name='Текст')
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, verbose_name='Тема')

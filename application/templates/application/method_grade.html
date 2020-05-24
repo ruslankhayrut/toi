@@ -3,7 +3,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Моя страница</title>
+    <title>Методические рекомендации</title>
     <link rel="stylesheet" href="{% static 'application/account.css' %}">
 </head>
 <body>
@@ -12,16 +12,15 @@
 <p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
 </div>
 <table>
+   {% for rec in recs %}
     <tr>
-        <td class="topic-name">
-            <a href="{% url 'application:method' %}"><p>Методические рекомендации</p></a>
+        <td>
+            <a href="{% url 'application:recomendation_text' rec_id=rec.id %}"><p>{{rec.topic}}</p></a>
         </td>
     </tr>
-    <tr>
-        <td class="topic-name">
-            <a href="{% url 'application:tasks' %}"><p>Задачи</p></a>
-        </td>
-    </tr>
+    {% endfor %}
 </table>
+
+
 </body>
 </html>

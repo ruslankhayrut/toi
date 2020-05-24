@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{{recomendation.topic}}</title>
+    <link rel="stylesheet" href="{% static 'application/account.css' %}">
+</head>
+<body>
+<div id="header">
+<a href="{% url 'application:account' %}"><p id="account-header">{{ user.username }}</p></a>
+<p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
+</div>
+<div id="content">
+    {% autoescape off %}
+    {{recomendation.text}}
+    {% endautoescape %}
+</div>
+
+</body>
+</html>

@@ -24,9 +24,44 @@ def registration(request):
         form = RegistrationForm()
     return render(request, 'application/registration.html', {'form': form})
 
+
 @login_required
 def account(request):
+    return render(request, 'application/account.html')
 
+@login_required
+def method(request):
+
+    grades = sorted(list(set((rec.grade for rec in Recomendation.objects.all()))))
+
+    context = {
+        'grades': grades,
+    }
+
+    return render(request, 'application/method.html', context)
+
+@login_required
+def method_grade(request, grade):
+    recs = get_list_or_404(Recomendation, grade=grade)
+
+    context = {
+        'recs': recs,
+    }
+
+    return render(request, 'application/method_grade.html', context)
+
+@login_required
+def recomendation_text(request, rec_id):
+    rec = get_object_or_404(Recomendation, pk=rec_id)
+
+    context = {
+        'recomendation': rec
+    }
+
+    return render(request, 'application/recomendation_text.html', context)
+
+@login_required
+def tasks(request):
     user = request.user
 
     done_modules = user.student.parse_to_list(user.student.done_modules)
@@ -44,7 +79,7 @@ def account(request):
         'done_topics': done_topics,
         'progress': progress,
     }
-    return render(request, 'application/account.html', context)
+    return render(request, 'application/tasks.html', context)
 
 @login_required
 def info(request, topic_id, info_id):

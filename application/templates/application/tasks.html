@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Моя страница</title>
+    <link rel="stylesheet" href="{% static 'application/account.css' %}">
+</head>
+<body>
+<div id="header">
+<a href="{% url 'application:account' %}"><p id="account-header">{{ user.username }}</p></a>
+<p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
+</div>
+<div id="progress">
+    <p class="total">Прогресс по курсу: {{progress}}%</p><br>
+    <p>Завершено модулей: {{done_modules|length}}/{{modules|length}}</p><br>
+    <p>Пройдено тем: {{done_topics|length}}/{{topics|length}}</p><br>
+    <p>Правильных ответов: {{done_questions|length}}/{{questions|length}}</p><br>
+</div>
+<table>
+    {% for module in modules %}
+    <tr>
+        <td class="module-name">{{ module.name }}</td>
+    </tr>
+        {% for topic in topics %}
+            {% if topic.module.id == module.id %}
+            <tr>
+                <td class="topic-name">
+                    {% if topic.id in done_topics %}
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>&#10004; {{ topic.name }}</p></a>
+                    {% else %}
+                    <a href="{% url 'application:info' topic_id=topic.id info_id=0  %}"><p>{{ topic.name }}</p></a>
+                    {% endif %}
+                </td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+
+    {% endfor %}
+</table>
+</body>
+</html>

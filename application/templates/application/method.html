@@ -3,7 +3,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Моя страница</title>
+    <title>Методические рекомендации</title>
     <link rel="stylesheet" href="{% static 'application/account.css' %}">
 </head>
 <body>
@@ -11,17 +11,13 @@
 <a href="{% url 'application:account' %}"><p id="account-header">{{ user.username }}</p></a>
 <p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
 </div>
+<h1>Методические рекомендации</h1>
 <table>
+{% for grade in grades %}
     <tr>
-        <td class="topic-name">
-            <a href="{% url 'application:method' %}"><p>Методические рекомендации</p></a>
-        </td>
+        <td><a href="{% url 'application:method_grade' grade=grade %}"><p>{{grade}} класс</p></a></td>
     </tr>
-    <tr>
-        <td class="topic-name">
-            <a href="{% url 'application:tasks' %}"><p>Задачи</p></a>
-        </td>
-    </tr>
+{% endfor %}
 </table>
 </body>
 </html>
