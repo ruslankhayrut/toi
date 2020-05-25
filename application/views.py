@@ -3,6 +3,8 @@ from .forms import RegistrationForm
 from django.contrib.auth.decorators import login_required
 from .models import *
 
+GRADES = sorted(list(set((rec.grade for rec in Recomendation.objects.all()))))
+
 def index(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('application:account'))
@@ -32,10 +34,9 @@ def account(request):
 @login_required
 def method(request):
 
-    grades = sorted(list(set((rec.grade for rec in Recomendation.objects.all()))))
 
     context = {
-        'grades': grades,
+        'grades': GRADES,
     }
 
     return render(request, 'application/method.html', context)
@@ -46,6 +47,7 @@ def method_grade(request, grade):
 
     context = {
         'recs': recs,
+        'grades': GRADES,
     }
 
     return render(request, 'application/method_grade.html', context)
@@ -54,8 +56,10 @@ def method_grade(request, grade):
 def recomendation_text(request, rec_id):
     rec = get_object_or_404(Recomendation, pk=rec_id)
 
+
     context = {
-        'recomendation': rec
+        'recomendation': rec,
+        'grades': GRADES,
     }
 
     return render(request, 'application/recomendation_text.html', context)

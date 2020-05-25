@@ -11,11 +11,13 @@
 <a href="{% url 'application:account' %}"><p id="account-header">{{ user.username }}</p></a>
 <p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
 </div>
+<br>
+<br>
 <h1>Методические рекомендации</h1>
-<table>
+<table class="navigation">
 {% for grade in grades %}
     <tr>
-        <td><a href="{% url 'application:method_grade' grade=grade %}"><p>{{grade}} класс</p></a></td>
+        <td class="topic-name"><a href="{% url 'application:method_grade' grade=grade %}"><p>{{grade}} класс</p></a></td>
     </tr>
 {% endfor %}
 </table>

@@ -5,6 +5,11 @@ body {
     padding-bottom: 15%;
 }
 
+h1, h3 {
+    text-align: center;
+    margin-bottom: 0;
+}
+
 table {
     position: relative;
     top: 80px;
@@ -42,6 +47,7 @@ td.topic-name p {
     top: 20%;
     font-size: 20pt;
     font-weight: bold;
+    color: white;
 }
 
 #exit {
@@ -91,3 +97,39 @@ a {
     font-size: small;
 }
 
+table.navigation {
+    width: 30%;
+
+}
+
+#content {
+    width: 50%;
+    position: absolute;
+    margin: auto;
+    top: 130px;
+    left: 25%;
+
+    overflow: auto;
+}
+
+#sidebar {
+    position: absolute;
+    overflow-x: hidden;
+    width: 17%;
+    top: 61px; /* Расстояние от верхнего края */
+    bottom: 0; /* Расстояние снизу  */
+}
+
+#sidebar table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#sidebar p {
+    padding: 0px 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 11px;
+    margin-bottom: 11px;
+}

@@ -11,10 +11,19 @@
 <a href="{% url 'application:account' %}"><p id="account-header">{{ user.username }}</p></a>
 <p id="exit"><a href="{% url 'logout' %}">Выйти</a></p>
 </div>
-<table>
+<div id="sidebar">
+    <table>
+        {% for grade in grades %}
+    <tr>
+        <td class="topic-name"><a href="{% url 'application:method_grade' grade=grade %}"><p>{{grade}} класс</p></a></td>
+    </tr>
+        {% endfor %}
+    </table>
+</div>
+<table class="navigation">
    {% for rec in recs %}
     <tr>
-        <td>
+        <td class="topic-name">
             <a href="{% url 'application:recomendation_text' rec_id=rec.id %}"><p>{{rec.topic}}</p></a>
         </td>
     </tr>
